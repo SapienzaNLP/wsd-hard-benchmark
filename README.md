@@ -94,9 +94,6 @@ wsd_hard_benchmark/
 ├── hardEN
 │   ├── hardEN.data.xml
 │   └── hardEN.gold.key.txt
-├── S07amended
-│   ├── S07amended.data.xml
-│   └── S07amended.gold.key.txt
 ├── S10amended
 │   ├── S10amended.data.xml
 │   └── S10amended.gold.key.txt
