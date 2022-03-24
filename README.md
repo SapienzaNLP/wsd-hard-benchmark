@@ -172,9 +172,10 @@ senseval2.d000.s000.t009 world%1:14:02::
 
 ### Datasets
 * **ALLamended:** A revised and amended version of the widely used ALL dataset proposed by Raganato et al. (2017).
-It is constructed by concatenating Senseval2, Senseval3, SemEval-2013, and SemEval-2015. **NOTE:** Differently from the original ALL,
-this dataset does not contain SemEval-2007 which is often used in the literature as the development/validation set.
-* **SemEval-2010 (S10amended):** A revised and amended version of SemEval-2010.
+It is constructed by concatenating [Senseval2](https://aclanthology.org/S01-1001/), [Senseval3](https://aclanthology.org/W04-0811/), [SemEval-2013](https://aclanthology.org/S13-2040/), and [SemEval-2015](https://aclanthology.org/S15-2049/).
+**NOTE:** Differently from the original ALL, this dataset does not contain
+[SemEval-2007](https://aclanthology.org/S07-1016/) which is often used in the literature as the development/validation set.
+* **SemEval-2010 (S10amended):** A revised and amended version of [SemEval-2010](https://aclanthology.org/S10-1003/).
 * **42D:** A novel challenge set for WSD, comprising difficult and out-of-domain words/senses.
 * **hardEN:** A "hard" dataset built by including all the instances of ALLamended, SemEval-2010 and 42D that are disambiguated incorrectly by several state-of-the-art systems.
 * **softEN:** This dataset includes all the instances of ALLamended, SemEval-2010 and 42D that are not included in hardEN.
@@ -227,12 +228,44 @@ python evaluation/evaluate_macro_F1.py \
     --strict
 ```
 
+### System predictions
+We include the predictions of several state-of-the-art systems for WSD in `evaluation/predictions`:
+```
+> tree evaluation/predictions/
+evaluation/predictions/
+├── 42D
+│   ├── ares-predictions.42D.key.txt
+│   ├── bem-predictions.42D.key.txt
+│   ├── esc-k1-predictions.42D.key.txt
+│   ├── esc-predictions.42D.key.txt
+│   ├── esc-semcor+k1-predictions.42D.key.txt
+│   ├── ewiser-predictions.42D.key.txt
+│   ├── generationary-predictions.42D.key.txt
+│   ├── glossbert-predictions.42D.key.txt
+│   ├── majority-predictions.ranked.42D.key.txt
+│   ├── majority-predictions.uniform.42D.key.txt
+│   └── syntagrank-predictions.42D.key.txt
+├── ALL
+│   ├── ares-predictions.key.txt
+│   ├── bem-predictions.key.txt
+...
+```
+Where:
+* **ARES** is from [Scarlini et al. (2020)](https://aclanthology.org/2020.emnlp-main.285/).
+* **BEM** is from [Blevins and Zettlemoyer (2020)](https://aclanthology.org/2020.acl-main.95/).
+* **ESC** is from [Barba et al. (2021)](https://aclanthology.org/2021.naacl-main.371/).
+* **EWISER** is from [Bevilacqua and Navigli (2020)](https://aclanthology.org/2020.acl-main.255/).
+* **Generationary** is from [Bevilacqua et al. (2021)](https://aclanthology.org/2020.emnlp-main.585/).
+* **GlossBERT** is from [Huang et al. (2019)](https://aclanthology.org/D19-1355/)
+* **SyntagRank** is from [Scozzafava et al. (2020)](https://aclanthology.org/2020.acl-demos.6/).
+
 ## Acknowledgments
 
-The authors gratefully acknowledge the support of the [ERC Consolidator Grant MOUSSE No. 726487](http://mousse-project.org/) and the [European Language Grid
-project No. 825627 (Universal Semantic Annotator, USeA)](https://live.european-language-grid.eu/catalogue/project/5334/) under the European Union’s Horizon 2020 research and innovation programme.
+The authors gratefully acknowledge the support of the [ERC Consolidator Grant MOUSSE No. 726487](http://mousse-project.org/)
+and the [European Language Grid project No. 825627 (Universal Semantic Annotator, USeA)](https://live.european-language-grid.eu/catalogue/project/5334/) 
+under the European Union’s Horizon 2020 research and innovation programme.
 
-This work was supported in part by the MIUR under grant “Dipartimenti di eccellenza 2018-2022” of the Department of Computer Science of the Sapienza University of Rome.
+This work was partially supported by the COST Action CA18209 - NexusLinguarum "European network for Web-centred linguistic data science".
 
 
 ## License
