@@ -1,0 +1,14 @@
+*.bin
+*.ckpt
+
+systems/*
+systems/ares/vectors/*
+systems/esc/checkpoints/*
+systems/esc/experiments/*
+systems/glossbert/checkpoints/*
+
+augmentation/*
+
+wsd_hard_benchmark/S07amended/*
+
+*.pyc
