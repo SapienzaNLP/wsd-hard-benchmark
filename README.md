@@ -259,6 +259,10 @@ Where:
 * **GlossBERT** is from [Huang et al. (2019)](https://aclanthology.org/D19-1355/)
 * **SyntagRank** is from [Scozzafava et al. (2020)](https://aclanthology.org/2020.acl-demos.6/).
 
+#### Results
+
+![overall results on the benchmark](./images/wsd_results.png "Comparison between different systems on the benchmark.")
+
 ## Acknowledgments
 
 The authors gratefully acknowledge the support of the [ERC Consolidator Grant MOUSSE No. 726487](http://mousse-project.org/)
