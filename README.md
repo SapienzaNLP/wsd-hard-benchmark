@@ -78,3 +78,165 @@ Run the following command and follow the steps to create a separate environment:
 > Enter environment name (recommended: wsd-hard-benchmark): wsd-hard-benchmark
 > Enter python version (recommended: 3.8): 3.8
 ```
+
+## The WSD hard benchmark
+
+### Overview
+Our revised and amended evaluation benchmark for WSD includes the following datasets:
+```
+wsd_hard_benchmark/
+├── 42D
+│   ├── 42D.data.xml
+│   └── 42D.gold.key.txt
+├── ALLamended
+│   ├── ALLamended.data.xml
+│   └── ALLamended.gold.key.txt
+├── hardEN
+│   ├── hardEN.data.xml
+│   └── hardEN.gold.key.txt
+├── S07amended
+│   ├── S07amended.data.xml
+│   └── S07amended.gold.key.txt
+├── S10amended
+│   ├── S10amended.data.xml
+│   └── S10amended.gold.key.txt
+└── softEN
+    ├── softEN.data.xml
+    └── softEN.gold.key.txt
+```
+
+### Data format
+We follow the format proposed in [Word Sense Disambiguation: A Unified Evaluation Framework and Empirical Comparison (Raganato et al., 2017)](https://aclanthology.org/E17-1010/).
+In particular, each dataset `dataset_name` is divided into two files:
+* `dataset_name.data.xml`: An XML file that contains the test sentences, meta-data and the target words the system has to disambiguate.
+* `dataset_name.gold.key.txt`: A text file which contains the ground truth for the target words in `dataset_name.data.xml`.
+
+#### `dataset_name.data.xml`
+Here is a sample from `ALLamended.data.xml`:
+* The root element is `corpus`.
+* Each sentence is wrapped within `<sentence> ... </sentence>` tags.
+* Each non-target word is wrapped within `<wf> ... </wf>` tags.
+* Each **target** word, i.e., word to disambiguate is wrapped within `<instance> ... </instance>` tags. The `id` of an instance is used in the `dataset_name.gold.key.txt` file to indicate the corresponding gold sense(s).
+* Both `wf` and `instance` elements are provided with their corresponding lemmas and part-of-speech (pos) tags.
+```xml
+<?xml version="1.0"?>
+<corpus lang="en" source="senseval2-senseval3-semeval2013-semeval2015">
+  <text id="senseval2.d000">
+    <sentence id="senseval2.d000.s000">
+      <wf lemma="the" pos="DET">The</wf>
+      <instance id="senseval2.d000.s000.t000" lemma="art" pos="NOUN">art</instance>
+      <wf lemma="of" pos="ADP">of</wf>
+      <wf lemma="change_ringing" pos="NOUN">change-ringing</wf>
+      <wf lemma="be" pos="VERB">is</wf>
+      <instance id="senseval2.d000.s000.t002" lemma="peculiar" pos="ADJ">peculiar</instance>
+      <wf lemma="to" pos="PRT">to</wf>
+      <wf lemma="the" pos="DET">the</wf>
+      <instance id="senseval2.d000.s000.t003" lemma="english" pos="NOUN">English</instance>
+      <wf lemma="," pos=".">,</wf>
+      <wf lemma="and" pos="CONJ">and</wf>
+      <wf lemma="," pos=".">,</wf>
+      <wf lemma="like" pos="ADP">like</wf>
+      <instance id="senseval2.d000.s000.t004" lemma="most" pos="ADJ">most</instance>
+      <instance id="senseval2.d000.s000.t005" lemma="english" pos="ADJ">English</instance>
+      <instance id="senseval2.d000.s000.t006" lemma="peculiarity" pos="NOUN">peculiarities</instance>
+      <wf lemma="," pos=".">,</wf>
+      <instance id="senseval2.d000.s000.t007" lemma="unintelligible" pos="ADJ">unintelligible</instance>
+      <wf lemma="to" pos="PRT">to</wf>
+      <wf lemma="the" pos="DET">the</wf>
+      <instance id="senseval2.d000.s000.t008" lemma="rest" pos="NOUN">rest</instance>
+      <wf lemma="of" pos="ADP">of</wf>
+      <wf lemma="the" pos="DET">the</wf>
+      <instance id="senseval2.d000.s000.t009" lemma="world" pos="NOUN">world</instance>
+      <wf lemma="." pos=".">.</wf>
+    </sentence>
+   ...
+  </text>
+ ...
+</corpus>
+```
+
+#### `dataset_name.gold.key.txt`
+Here is a sample from `ALLamended.gold.key.txt`:
+* Each line refers to an instance.
+* The first element of each line is the `id` of the instance (see `dataset_name.data.xml` above).
+* The other elements of the line are the gold senses expressed as WordNet sense keys.
+* In case of multiple gold senses, they are all equally valid (according to expert annotators). 
+```
+senseval2.d000.s000.t000 art%1:09:00::
+senseval2.d000.s000.t002 peculiar%5:00:00:characteristic:00 peculiar%5:00:00:specific:00
+senseval2.d000.s000.t003 english%1:18:00::
+senseval2.d000.s000.t004 most%3:00:02::
+senseval2.d000.s000.t005 english%3:01:00::
+senseval2.d000.s000.t006 peculiarity%1:07:02:: peculiarity%1:09:00::
+senseval2.d000.s000.t007 unintelligible%5:00:00:incomprehensible:00
+senseval2.d000.s000.t008 rest%1:24:00::
+senseval2.d000.s000.t009 world%1:14:02::
+```
+
+### Datasets
+* **ALLamended:** A revised and amended version of the widely used ALL dataset proposed by Raganato et al. (2017).
+It is constructed by concatenating Senseval2, Senseval3, SemEval-2013, and SemEval-2015. **NOTE:** Differently from the original ALL,
+this dataset does not contain SemEval-2007 which is often used in the literature as the development/validation set.
+* **SemEval-2010 (S10amended):** A revised and amended version of SemEval-2010.
+* **42D:** A novel challenge set for WSD, comprising difficult and out-of-domain words/senses.
+* **hardEN:** A "hard" dataset built by including all the instances of ALLamended, SemEval-2010 and 42D that are disambiguated incorrectly by several state-of-the-art systems.
+* **softEN:** This dataset includes all the instances of ALLamended, SemEval-2010 and 42D that are not included in hardEN.
+
+### Evaluation
+We provide two scripts to compute the micro-averaged F1 score and the macro-averaged F1 score (we refer to the paper for further details).
+
+#### Micro F1
+You can compute the micro F1 score of your system using the following command:
+```bash
+python evaluation/evaluate_micro_F1.py \
+    --gold_path <path/to/gold/keys.txt> \
+    --pred_path <path/to/pred/keys.txt>
+```
+Optionally, you can specify another keys file which will be used to filter instances,
+i.e., the evaluation script will only consider those instances appearing in this third file.
+```bash
+# Evaluates the score of ESC on the instances of ALL by only considering
+# those instances that appear in ALLamended.
+python evaluation/evaluate_micro_F1.py \
+    --gold_path ALL.gold.key.txt \
+    --pred_path esc-predictions.key.txt \
+    --key_subset_path ALLamended.gold.key.txt
+```
+
+
+#### Macro F1
+You can compute the macro F1 score of your system using the following command:
+```bash
+python evaluation/evaluate_macro_F1.py \
+    --gold_path <path/to/gold/keys.txt> \
+    --pred_path <path/to/pred/keys.txt>
+```
+Similarly to the micro F1 scoring script, you can also specify another keys file which will be used to filter instances,
+i.e., the evaluation script will only consider those instances appearing in this third file.
+```bash
+# Evaluates the score of ESC on the instances of ALL by only considering
+# those instances that appear in ALLamended.
+python evaluation/evaluate_macro_F1.py \
+    --gold_path ALL.gold.key.txt \
+    --pred_path esc-predictions.key.txt \
+    --key_subset_path ALLamended.gold.key.txt
+```
+
+The macro F1 scoring script has also a "strict" mode, which you can enable by using the `--strict` flag as follows:
+```bash
+python evaluation/evaluate_macro_F1.py \
+    --gold_path <path/to/gold/keys.txt> \
+    --pred_path <path/to/pred/keys.txt> \
+    --strict
+```
+
+## Acknowledgments
+
+The authors gratefully acknowledge the support of the [ERC Consolidator Grant MOUSSE No. 726487](http://mousse-project.org/) and the [European Language Grid
+project No. 825627 (Universal Semantic Annotator, USeA)](https://live.european-language-grid.eu/catalogue/project/5334/) under the European Union’s Horizon 2020 research and innovation programme.
+
+This work was supported in part by the MIUR under grant “Dipartimenti di eccellenza 2018-2022” of the Department of Computer Science of the Sapienza University of Rome.
+
+
+## License
+This work is under the Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) license.
