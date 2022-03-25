@@ -70,7 +70,10 @@ isolation.
 Thus, you can install our dependencies without causing conflicts with your
 setup (even with different Python versions).
 
+Our conde depends on just `nltk`, version 3.4.5. You will also need to download WordNet files with 
+`python -c 'import nltk; nltk.download("wordnet")'`.
 
+To automate the environment setup, you can use the `setup.sh` script that we provide. 
 Run the following command and follow the steps to create a separate environment:
 ```bash
 # Make sure you have installed conda.
@@ -103,7 +106,7 @@ wsd_hard_benchmark/
 ```
 
 ### Data format
-We follow the format proposed in [Word Sense Disambiguation: A Unified Evaluation Framework and Empirical Comparison (Raganato et al., 2017)](https://aclanthology.org/E17-1010/).
+We follow the format used in [Word Sense Disambiguation: A Unified Evaluation Framework and Empirical Comparison (Raganato et al., 2017)](https://aclanthology.org/E17-1010/).
 In particular, each dataset `dataset_name` is divided into two files:
 * `dataset_name.data.xml`: An XML file that contains the test sentences, meta-data and the target words the system has to disambiguate.
 * `dataset_name.gold.key.txt`: A text file which contains the ground truth for the target words in `dataset_name.data.xml`.
