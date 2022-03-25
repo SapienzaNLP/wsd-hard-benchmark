@@ -9,3 +9,6 @@ conda activate "$env_name"
 
 # install python requirements
 pip install -r requirements.txt
+
+# download nltk's WordNet files
+python -c 'import nltk; nltk.download("wordnet")'
