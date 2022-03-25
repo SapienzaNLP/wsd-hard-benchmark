@@ -1,8 +1,6 @@
 from argparse import ArgumentParser
 from collections import defaultdict
 
-from nltk.corpus import wordnet as wn
-
 
 def load_keys(path):
     keys = {}
